@@ -31,3 +31,10 @@
 # Debug files
 *.dSYM/
 *.su
+
+
+ffmpeg-3.0.2/doc/**.html
+./**/doc/*.html
+**/*.html
+
+ffmpeg-3.0.2/doc/ffmpeg.html
