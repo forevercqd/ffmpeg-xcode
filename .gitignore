@@ -33,8 +33,6 @@
 *.su
 
 
-ffmpeg-3.0.2/doc/**.html
-./**/doc/*.html
-**/*.html
+**/doc/*.html
 
 ffmpeg-3.0.2/doc/ffmpeg.html
