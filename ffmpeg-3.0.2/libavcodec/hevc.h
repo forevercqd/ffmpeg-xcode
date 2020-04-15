@@ -407,6 +407,7 @@ typedef struct HEVCSPS {
     HEVCWindow pic_conf_win;
 
     int bit_depth;
+    int bit_depth_chroma;
     int pixel_shift;
     enum AVPixelFormat pix_fmt;
 
@@ -538,8 +539,8 @@ typedef struct HEVCPPS {
     uint8_t chroma_qp_offset_list_enabled_flag;
     uint8_t diff_cu_chroma_qp_offset_depth;
     uint8_t chroma_qp_offset_list_len_minus1;
-    int8_t  cb_qp_offset_list[5];
-    int8_t  cr_qp_offset_list[5];
+    int8_t  cb_qp_offset_list[6];
+    int8_t  cr_qp_offset_list[6];
     uint8_t log2_sao_offset_scale_luma;
     uint8_t log2_sao_offset_scale_chroma;
 
@@ -1091,6 +1092,15 @@ int ff_hevc_split_packet(HEVCContext *s, HEVCPacket *pkt, const uint8_t *buf, in
 
 int ff_hevc_encode_nal_vps(HEVCVPS *vps, unsigned int id,
                            uint8_t *buf, int buf_size);
+
+/**
+ * Reset SEI values that are stored on the Context.
+ * e.g. Caption data that was extracted during NAL
+ * parsing.
+ *
+ * @param s HEVCContext.
+ */
+void ff_hevc_reset_sei(HEVCContext *s);
 
 extern const uint8_t ff_hevc_qpel_extra_before[4];
 extern const uint8_t ff_hevc_qpel_extra_after[4];

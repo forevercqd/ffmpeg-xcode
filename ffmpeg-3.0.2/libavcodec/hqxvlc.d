@@ -9,5 +9,6 @@ libavcodec/hqxvlc.o: libavcodec/hqxvlc.c libavcodec/hqx.h \
   libavutil/intfloat.h libavutil/mathematics.h libavutil/rational.h \
   libavutil/buffer.h libavutil/samplefmt.h libavcodec/get_bits.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
-  libavutil/x86/intreadwrite.h libavutil/avassert.h libavcodec/mathops.h \
+  libavutil/x86/intreadwrite.h libavutil/avassert.h libavcodec/avcodec.h \
+  libavutil/channel_layout.h libavcodec/version.h libavcodec/mathops.h \
   libavcodec/x86/mathops.h libavutil/x86/asm.h libavcodec/hqxdsp.h

@@ -8,10 +8,10 @@ libavcodec/hevc_parser.o: libavcodec/hevc_parser.c libavutil/common.h \
   libavutil/cpu.h libavutil/dict.h libavutil/x86/emms.h libavutil/libm.h \
   libavcodec/golomb.h libavcodec/get_bits.h libavutil/intreadwrite.h \
   libavutil/bswap.h libavutil/x86/bswap.h libavutil/x86/intreadwrite.h \
-  libavutil/avassert.h libavcodec/mathops.h libavcodec/x86/mathops.h \
+  libavutil/avassert.h libavcodec/avcodec.h libavutil/samplefmt.h \
+  libavutil/buffer.h libavutil/channel_layout.h libavutil/frame.h \
+  libavcodec/version.h libavcodec/mathops.h libavcodec/x86/mathops.h \
   libavutil/x86/asm.h libavcodec/put_bits.h libavcodec/hevc.h \
-  libavutil/buffer.h libavutil/md5.h libavcodec/avcodec.h \
-  libavutil/samplefmt.h libavutil/channel_layout.h libavutil/frame.h \
-  libavcodec/version.h libavcodec/bswapdsp.h libavcodec/cabac.h \
+  libavutil/md5.h libavcodec/bswapdsp.h libavcodec/cabac.h \
   libavcodec/hevcpred.h libavcodec/hevcdsp.h libavcodec/internal.h \
   libavcodec/thread.h libavcodec/videodsp.h libavcodec/parser.h

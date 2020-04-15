@@ -15,7 +15,7 @@ libavcodec/hevc.o: libavcodec/hevc.c libavutil/atomic.h config.h \
   libavutil/x86/intreadwrite.h libavcodec/cabac_functions.h \
   libavcodec/cabac.h libavcodec/put_bits.h libavcodec/x86/cabac.h \
   libavutil/x86/asm.h libavcodec/golomb.h libavcodec/get_bits.h \
-  libavcodec/mathops.h libavcodec/x86/mathops.h libavcodec/hevc.h \
   libavcodec/avcodec.h libavutil/channel_layout.h libavcodec/version.h \
+  libavcodec/mathops.h libavcodec/x86/mathops.h libavcodec/hevc.h \
   libavcodec/hevcpred.h libavcodec/hevcdsp.h libavcodec/internal.h \
   libavcodec/thread.h libavcodec/videodsp.h libavcodec/profiles.h

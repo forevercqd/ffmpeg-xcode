@@ -1,1 +1,1 @@
-config:x86:x86_64:generic:darwin:Apple LLVM version 7.3.0 (clang-703.0.31):--enable-debug
+config:x86:x86_64:generic:darwin:Apple clang version 11.0.0 (clang-1100.0.33.16):--prefix=./build/mac --enable-debug --disable-yasm

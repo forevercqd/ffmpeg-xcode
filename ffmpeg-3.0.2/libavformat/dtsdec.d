@@ -9,9 +9,9 @@ libavformat/dtsdec.o: libavformat/dtsdec.c libavcodec/bytestream.h \
   libavutil/intfloat.h libavutil/mathematics.h libavutil/rational.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
   libavutil/x86/intreadwrite.h libavcodec/dca.h \
-  libavcodec/dca_syncwords.h libavcodec/get_bits.h libavcodec/mathops.h \
+  libavcodec/dca_syncwords.h libavcodec/get_bits.h libavcodec/avcodec.h \
+  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
+  libavutil/frame.h libavcodec/version.h libavcodec/mathops.h \
   libavcodec/x86/mathops.h libavutil/x86/asm.h libavformat/avformat.h \
-  libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
-  libavutil/channel_layout.h libavutil/frame.h libavcodec/version.h \
   libavformat/avio.h libavformat/version.h libavformat/rawdec.h \
   libavutil/opt.h

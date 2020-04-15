@@ -377,6 +377,11 @@ static int handle_eac3(MOVMuxContext *mov, AVPacket *pkt, MOVTrack *track)
                 info->ec3_done = 1;
                 goto concatenate;
             }
+        } else {
+            if (hdr->substreamid != 0) {
+                avpriv_request_sample(mov->fc, "Multiple non EAC3 independent substreams");
+                return AVERROR_PATCHWELCOME;
+            }
         }
 
         /* fill the info needed for the "dec3" atom */
@@ -4342,15 +4347,10 @@ static int mov_auto_flush_fragment(AVFormatContext *s, int force)
     return ret;
 }
 
-int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt)
+static int check_pkt(AVFormatContext *s, AVPacket *pkt)
 {
     MOVMuxContext *mov = s->priv_data;
-    AVIOContext *pb = s->pb;
     MOVTrack *trk = &mov->tracks[pkt->stream_index];
-    AVCodecContext *enc = trk->enc;
-    unsigned int samples_in_chunk = 0;
-    int size = pkt->size, ret = 0;
-    uint8_t *reformatted_data = NULL;
 
     if (trk->entry) {
         int64_t duration = pkt->dts - trk->cluster[trk->entry - 1].dts;
@@ -4362,11 +4362,35 @@ int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt)
             pkt->dts = trk->cluster[trk->entry - 1].dts + 1;
             pkt->pts = AV_NOPTS_VALUE;
         }
+    } else if (pkt->dts <= INT_MIN || pkt->dts >= INT_MAX) {
+            av_log(s, AV_LOG_ERROR, "Application provided initial timestamp: %"PRId64" is out of range for mov/mp4 format\n",
+                pkt->dts
+            );
+
+            pkt->dts = 0;
+            pkt->pts = AV_NOPTS_VALUE;
     }
     if (pkt->duration < 0 || pkt->duration > INT_MAX) {
         av_log(s, AV_LOG_ERROR, "Application provided duration: %"PRId64" is invalid\n", pkt->duration);
         return AVERROR(EINVAL);
     }
+    return 0;
+}
+
+int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt)
+{
+    MOVMuxContext *mov = s->priv_data;
+    AVIOContext *pb = s->pb;
+    MOVTrack *trk = &mov->tracks[pkt->stream_index];
+    AVCodecContext *enc = trk->enc;
+    unsigned int samples_in_chunk = 0;
+    int size = pkt->size, ret = 0;
+    uint8_t *reformatted_data = NULL;
+
+    ret = check_pkt(s, pkt);
+    if (ret < 0)
+        return ret;
+
     if (mov->flags & FF_MOV_FLAG_FRAGMENT) {
         int ret;
         if (mov->moov_written || mov->flags & FF_MOV_FLAG_EMPTY_MOOV) {
@@ -4412,6 +4436,11 @@ int ff_mov_write_packet(AVFormatContext *s, AVPacket *pkt)
         samples_in_chunk = size / trk->sample_size;
     else
         samples_in_chunk = 1;
+
+    if (samples_in_chunk < 1) {
+        av_log(s, AV_LOG_ERROR, "fatal error, input packet contains no samples\n");
+        return AVERROR_PATCHWELCOME;
+    }
 
     /* copy extradata if it exists */
     if (trk->vos_len == 0 && enc->extradata_size > 0 &&
@@ -4630,6 +4659,10 @@ static int mov_write_single_packet(AVFormatContext *s, AVPacket *pkt)
         AVCodecContext *enc = trk->enc;
         int64_t frag_duration = 0;
         int size = pkt->size;
+
+        int ret = check_pkt(s, pkt);
+        if (ret < 0)
+            return ret;
 
         if (mov->flags & FF_MOV_FLAG_FRAG_DISCONT) {
             int i;

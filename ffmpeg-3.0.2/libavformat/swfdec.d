@@ -9,8 +9,8 @@ libavformat/swfdec.o: libavformat/swfdec.c config.h libavutil/avassert.h \
   libavutil/channel_layout.h libavutil/imgutils.h libavutil/pixdesc.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
   libavutil/x86/intreadwrite.h libavcodec/get_bits.h \
-  libavcodec/mathops.h libavcodec/x86/mathops.h libavutil/x86/asm.h \
-  libavformat/swf.h libavutil/fifo.h libavformat/avformat.h \
   libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
-  libavutil/frame.h libavcodec/version.h libavformat/avio.h \
+  libavutil/frame.h libavcodec/version.h libavcodec/mathops.h \
+  libavcodec/x86/mathops.h libavutil/x86/asm.h libavformat/swf.h \
+  libavutil/fifo.h libavformat/avformat.h libavformat/avio.h \
   libavformat/version.h libavformat/internal.h libavformat/os_support.h

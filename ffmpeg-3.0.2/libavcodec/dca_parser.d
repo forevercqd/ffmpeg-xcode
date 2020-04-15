@@ -8,7 +8,7 @@ libavcodec/dca_parser.o: libavcodec/dca_parser.c libavcodec/dca.h \
   libavutil/cpu.h libavutil/dict.h libavutil/x86/emms.h libavutil/libm.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
   libavutil/x86/intreadwrite.h libavcodec/dca_syncwords.h \
-  libavcodec/get_bits.h libavutil/avassert.h libavcodec/mathops.h \
-  libavcodec/x86/mathops.h libavutil/x86/asm.h libavcodec/parser.h \
-  libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
-  libavutil/channel_layout.h libavutil/frame.h libavcodec/version.h
+  libavcodec/get_bits.h libavutil/avassert.h libavcodec/avcodec.h \
+  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
+  libavutil/frame.h libavcodec/version.h libavcodec/mathops.h \
+  libavcodec/x86/mathops.h libavutil/x86/asm.h libavcodec/parser.h

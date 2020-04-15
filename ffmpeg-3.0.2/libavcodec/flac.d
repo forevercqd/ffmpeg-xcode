@@ -9,7 +9,7 @@ libavcodec/flac.o: libavcodec/flac.c libavutil/channel_layout.h \
   libavutil/mathematics.h libavutil/rational.h libavcodec/bytestream.h \
   libavutil/avassert.h libavutil/intreadwrite.h libavutil/bswap.h \
   libavutil/x86/bswap.h libavutil/x86/intreadwrite.h \
-  libavcodec/get_bits.h libavcodec/mathops.h libavcodec/x86/mathops.h \
-  libavutil/x86/asm.h libavcodec/flac.h libavcodec/avcodec.h \
-  libavutil/samplefmt.h libavutil/buffer.h libavutil/frame.h \
-  libavcodec/version.h libavcodec/flacdata.h libavcodec/internal.h
+  libavcodec/get_bits.h libavcodec/avcodec.h libavutil/samplefmt.h \
+  libavutil/buffer.h libavutil/frame.h libavcodec/version.h \
+  libavcodec/mathops.h libavcodec/x86/mathops.h libavutil/x86/asm.h \
+  libavcodec/flac.h libavcodec/flacdata.h libavcodec/internal.h

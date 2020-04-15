@@ -12,4 +12,5 @@ libavcodec/dvbsubdec.o: libavcodec/dvbsubdec.c libavcodec/avcodec.h \
   libavutil/bswap.h libavutil/x86/bswap.h libavutil/x86/intreadwrite.h \
   libavutil/avassert.h libavcodec/mathops.h libavcodec/x86/mathops.h \
   libavutil/x86/asm.h libavcodec/bytestream.h libavcodec/internal.h \
-  libavutil/colorspace.h libavutil/opt.h
+  libavutil/colorspace.h libavutil/imgutils.h libavutil/pixdesc.h \
+  libavutil/opt.h

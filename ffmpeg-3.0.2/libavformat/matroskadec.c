@@ -87,6 +87,7 @@ typedef const struct EbmlSyntax {
     int list_elem_size;
     int data_offset;
     union {
+        int64_t     i;
         uint64_t    u;
         double      f;
         const char *s;
@@ -590,7 +591,7 @@ static const EbmlSyntax matroska_segments[] = {
 };
 
 static const EbmlSyntax matroska_blockmore[] = {
-    { MATROSKA_ID_BLOCKADDID,      EBML_UINT, 0, offsetof(MatroskaBlock,additional_id) },
+    { MATROSKA_ID_BLOCKADDID,      EBML_UINT, 0, offsetof(MatroskaBlock,additional_id), { .u = 1 } },
     { MATROSKA_ID_BLOCKADDITIONAL, EBML_BIN,  0, offsetof(MatroskaBlock,additional) },
     { 0 }
 };
@@ -606,7 +607,7 @@ static const EbmlSyntax matroska_blockgroup[] = {
     { MATROSKA_ID_SIMPLEBLOCK,    EBML_BIN,  0, offsetof(MatroskaBlock, bin) },
     { MATROSKA_ID_BLOCKDURATION,  EBML_UINT, 0, offsetof(MatroskaBlock, duration) },
     { MATROSKA_ID_DISCARDPADDING, EBML_SINT, 0, offsetof(MatroskaBlock, discard_padding) },
-    { MATROSKA_ID_BLOCKREFERENCE, EBML_SINT, 0, offsetof(MatroskaBlock, reference) },
+    { MATROSKA_ID_BLOCKREFERENCE, EBML_SINT, 0, offsetof(MatroskaBlock, reference), { .i = INT64_MIN } },
     { MATROSKA_ID_CODECSTATE,     EBML_NONE },
     {                          1, EBML_UINT, 0, offsetof(MatroskaBlock, non_simple), { .u = 1 } },
     { 0 }
@@ -977,6 +978,9 @@ static int ebml_parse_nest(MatroskaDemuxContext *matroska, EbmlSyntax *syntax,
 
     for (i = 0; syntax[i].id; i++)
         switch (syntax[i].type) {
+        case EBML_SINT:
+            *(int64_t *) ((char *) data + syntax[i].data_offset) = syntax[i].def.i;
+            break;
         case EBML_UINT:
             *(uint64_t *) ((char *) data + syntax[i].data_offset) = syntax[i].def.u;
             break;
@@ -1778,8 +1782,16 @@ static int matroska_parse_tracks(AVFormatContext *s)
         }
 
         if (track->type == MATROSKA_TRACK_TYPE_VIDEO) {
-            if (!track->default_duration && track->video.frame_rate > 0)
-                track->default_duration = 1000000000 / track->video.frame_rate;
+            if (!track->default_duration && track->video.frame_rate > 0) {
+                double default_duration = 1000000000 / track->video.frame_rate;
+                if (default_duration > UINT64_MAX || default_duration < 0) {
+                    av_log(matroska->ctx, AV_LOG_WARNING,
+                         "Invalid frame rate %e. Cannot calculate default duration.\n",
+                         track->video.frame_rate);
+                } else {
+                    track->default_duration = default_duration;
+                }
+            }
             if (track->video.display_width == -1)
                 track->video.display_width = track->video.pixel_width;
             if (track->video.display_height == -1)
@@ -3097,7 +3109,7 @@ static int matroska_parse_cluster_incremental(MatroskaDemuxContext *matroska)
         matroska->current_cluster_num_blocks = blocks_list->nb_elem;
         i                                    = blocks_list->nb_elem - 1;
         if (blocks[i].bin.size > 0 && blocks[i].bin.data) {
-            int is_keyframe = blocks[i].non_simple ? !blocks[i].reference : -1;
+            int is_keyframe = blocks[i].non_simple ? blocks[i].reference == INT64_MIN : -1;
             uint8_t* additional = blocks[i].additional.size > 0 ?
                                     blocks[i].additional.data : NULL;
             if (!blocks[i].non_simple)
@@ -3135,7 +3147,7 @@ static int matroska_parse_cluster(MatroskaDemuxContext *matroska)
     blocks      = blocks_list->elem;
     for (i = 0; i < blocks_list->nb_elem; i++)
         if (blocks[i].bin.size > 0 && blocks[i].bin.data) {
-            int is_keyframe = blocks[i].non_simple ? !blocks[i].reference : -1;
+            int is_keyframe = blocks[i].non_simple ? blocks[i].reference == INT64_MIN : -1;
             res = matroska_parse_block(matroska, blocks[i].bin.data,
                                        blocks[i].bin.size, blocks[i].bin.pos,
                                        cluster.timecode, blocks[i].duration,
@@ -3578,6 +3590,11 @@ static int webm_dash_manifest_read_header(AVFormatContext *s)
     if (ret) {
         av_log(s, AV_LOG_ERROR, "Failed to read file headers\n");
         return -1;
+    }
+    if (!s->nb_streams) {
+        matroska_read_close(s);
+        av_log(s, AV_LOG_ERROR, "No streams found\n");
+        return AVERROR_INVALIDDATA;
     }
 
     if (!matroska->is_live) {

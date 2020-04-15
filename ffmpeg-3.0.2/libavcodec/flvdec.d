@@ -8,10 +8,10 @@ libavcodec/flvdec.o: libavcodec/flvdec.c libavutil/imgutils.h \
   libavutil/intfloat.h libavutil/mathematics.h libavutil/rational.h \
   libavutil/pixdesc.h libavcodec/flv.h libavcodec/get_bits.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
-  libavutil/x86/intreadwrite.h libavutil/avassert.h libavcodec/mathops.h \
+  libavutil/x86/intreadwrite.h libavutil/avassert.h libavcodec/avcodec.h \
+  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
+  libavutil/frame.h libavcodec/version.h libavcodec/mathops.h \
   libavcodec/x86/mathops.h libavutil/x86/asm.h libavcodec/mpegvideo.h \
-  libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
-  libavutil/channel_layout.h libavutil/frame.h libavcodec/version.h \
   libavcodec/blockdsp.h libavcodec/error_resilience.h \
   libavcodec/me_cmp.h libavcodec/thread.h libavcodec/fdctdsp.h \
   libavcodec/h264chroma.h libavcodec/h263dsp.h libavcodec/hpeldsp.h \

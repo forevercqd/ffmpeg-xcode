@@ -8,10 +8,10 @@ libavformat/oggparseflac.o: libavformat/oggparseflac.c \
   libavutil/x86/timer.h libavutil/cpu.h libavutil/dict.h \
   libavutil/x86/emms.h libavutil/libm.h libavutil/intreadwrite.h \
   libavutil/bswap.h libavutil/x86/bswap.h libavutil/x86/intreadwrite.h \
-  libavutil/avassert.h libavcodec/mathops.h libavcodec/x86/mathops.h \
-  libavutil/x86/asm.h libavcodec/flac.h libavcodec/avcodec.h \
-  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
-  libavutil/frame.h libavcodec/version.h libavcodec/bytestream.h \
+  libavutil/avassert.h libavcodec/avcodec.h libavutil/samplefmt.h \
+  libavutil/buffer.h libavutil/channel_layout.h libavutil/frame.h \
+  libavcodec/version.h libavcodec/mathops.h libavcodec/x86/mathops.h \
+  libavutil/x86/asm.h libavcodec/flac.h libavcodec/bytestream.h \
   libavformat/avformat.h libavformat/avio.h libavformat/version.h \
   libavformat/internal.h libavformat/os_support.h libavformat/oggdec.h \
   libavformat/metadata.h

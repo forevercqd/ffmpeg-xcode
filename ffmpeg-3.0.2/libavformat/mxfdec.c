@@ -382,7 +382,7 @@ static int mxf_get_stream_index(AVFormatContext *s, KLVPacket *klv)
     for (i = 0; i < s->nb_streams; i++) {
         MXFTrack *track = s->streams[i]->priv_data;
         /* SMPTE 379M 7.3 */
-        if (!memcmp(klv->key + sizeof(mxf_essence_element_key), track->track_number, sizeof(track->track_number)))
+        if (track && !memcmp(klv->key + sizeof(mxf_essence_element_key), track->track_number, sizeof(track->track_number)))
             return i;
     }
     /* return 0 if only one stream, for OP Atom files with 0 as track number */
@@ -491,7 +491,7 @@ static int mxf_read_primer_pack(void *arg, AVIOContext *pb, int tag, int size, U
         avpriv_request_sample(pb, "Primer pack item length %d", item_len);
         return AVERROR_PATCHWELCOME;
     }
-    if (item_num > 65536) {
+    if (item_num > 65536 || item_num < 0) {
         av_log(mxf->fc, AV_LOG_ERROR, "item_num %d is too large\n", item_num);
         return AVERROR_INVALIDDATA;
     }
@@ -826,7 +826,7 @@ static inline int mxf_read_utf16_string(AVIOContext *pb, int size, char** str, i
     int ret;
     size_t buf_size;
 
-    if (size < 0)
+    if (size < 0 || size > INT_MAX/2)
         return AVERROR(EINVAL);
 
     buf_size = size + size / 2 + 1;
@@ -887,6 +887,8 @@ static int mxf_read_index_entry_array(AVIOContext *pb, MXFIndexTableSegment *seg
     segment->nb_index_entries = avio_rb32(pb);
 
     length = avio_rb32(pb);
+    if(segment->nb_index_entries && length < 11)
+        return AVERROR_INVALIDDATA;
 
     if (!(segment->temporal_offset_entries=av_calloc(segment->nb_index_entries, sizeof(*segment->temporal_offset_entries))) ||
         !(segment->flag_entries          = av_calloc(segment->nb_index_entries, sizeof(*segment->flag_entries))) ||
@@ -897,6 +899,8 @@ static int mxf_read_index_entry_array(AVIOContext *pb, MXFIndexTableSegment *seg
     }
 
     for (i = 0; i < segment->nb_index_entries; i++) {
+        if(avio_feof(pb))
+            return AVERROR_INVALIDDATA;
         segment->temporal_offset_entries[i] = avio_r8(pb);
         avio_r8(pb);                                        /* KeyFrameOffset */
         segment->flag_entries[i] = avio_r8(pb);
@@ -3012,7 +3016,7 @@ static int mxf_read_packet_old(AVFormatContext *s, AVPacket *pkt)
                 if (mxf->nb_index_tables >= 1 && mxf->current_edit_unit < t->nb_ptses) {
                     pkt->dts = mxf->current_edit_unit + t->first_dts;
                     pkt->pts = t->ptses[mxf->current_edit_unit];
-                } else if (track->intra_only) {
+                } else if (track && track->intra_only) {
                     /* intra-only -> PTS = EditUnit.
                      * let utils.c figure out DTS since it can be < PTS if low_delay = 0 (Sony IMX30) */
                     pkt->pts = mxf->current_edit_unit;

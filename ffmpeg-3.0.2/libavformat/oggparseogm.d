@@ -8,9 +8,9 @@ libavformat/oggparseogm.o: libavformat/oggparseogm.c libavutil/avassert.h \
   libavutil/intfloat.h libavutil/mathematics.h libavutil/rational.h \
   libavutil/intreadwrite.h libavutil/bswap.h libavutil/x86/bswap.h \
   libavutil/x86/intreadwrite.h libavcodec/get_bits.h \
+  libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
+  libavutil/channel_layout.h libavutil/frame.h libavcodec/version.h \
   libavcodec/mathops.h libavcodec/x86/mathops.h libavutil/x86/asm.h \
-  libavcodec/bytestream.h libavformat/avformat.h libavcodec/avcodec.h \
-  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
-  libavutil/frame.h libavcodec/version.h libavformat/avio.h \
+  libavcodec/bytestream.h libavformat/avformat.h libavformat/avio.h \
   libavformat/version.h libavformat/internal.h libavformat/os_support.h \
   libavformat/oggdec.h libavformat/metadata.h libavformat/riff.h

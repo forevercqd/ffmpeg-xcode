@@ -10,10 +10,10 @@ libavformat/oggparsevorbis.o: libavformat/oggparsevorbis.c \
   libavutil/libm.h libavutil/intfloat.h libavutil/mathematics.h \
   libavutil/rational.h libavutil/intreadwrite.h \
   libavutil/x86/intreadwrite.h libavcodec/get_bits.h \
+  libavcodec/avcodec.h libavutil/samplefmt.h libavutil/buffer.h \
+  libavutil/channel_layout.h libavutil/frame.h libavcodec/version.h \
   libavcodec/mathops.h libavcodec/x86/mathops.h libavutil/x86/asm.h \
-  libavcodec/vorbis_parser.h libavformat/avformat.h libavcodec/avcodec.h \
-  libavutil/samplefmt.h libavutil/buffer.h libavutil/channel_layout.h \
-  libavutil/frame.h libavcodec/version.h libavformat/avio.h \
+  libavcodec/vorbis_parser.h libavformat/avformat.h libavformat/avio.h \
   libavformat/version.h libavformat/flac_picture.h \
   libavformat/internal.h libavformat/os_support.h libavformat/oggdec.h \
   libavformat/metadata.h libavformat/vorbiscomment.h \
