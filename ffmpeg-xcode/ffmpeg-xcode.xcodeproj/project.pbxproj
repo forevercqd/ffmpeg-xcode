@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A4016F601D0ED472003C549B /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A4016F5F1D0ED472003C549B /* main.c */; };
 		A40192C41D0ED680003C549B /* arch.mak in Sources */ = {isa = PBXBuildFile; fileRef = A4016F6B1D0ED645003C549B /* arch.mak */; };
 		A40192C51D0ED680003C549B /* cmdutils.c in Sources */ = {isa = PBXBuildFile; fileRef = A4016F6D1D0ED645003C549B /* cmdutils.c */; };
 		A40192C61D0ED680003C549B /* cmdutils.d in Sources */ = {isa = PBXBuildFile; fileRef = A4016F6E1D0ED645003C549B /* cmdutils.d */; };
@@ -5729,7 +5728,6 @@
 
 /* Begin PBXFileReference section */
 		A4016F5C1D0ED472003C549B /* ffmpeg-xcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ffmpeg-xcode"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4016F5F1D0ED472003C549B /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A4016F671D0ED645003C549B /* .config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .config; sourceTree = "<group>"; };
 		A4016F681D0ED645003C549B /* .gitattributes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		A4016F691D0ED645003C549B /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -16340,7 +16338,6 @@
 			isa = PBXGroup;
 			children = (
 				A4016F661D0ED645003C549B /* ffmpeg-3.0.2 */,
-				A4016F5E1D0ED472003C549B /* ffmpeg-xcode */,
 				A4016F5D1D0ED472003C549B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -16351,14 +16348,6 @@
 				A4016F5C1D0ED472003C549B /* ffmpeg-xcode */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A4016F5E1D0ED472003C549B /* ffmpeg-xcode */ = {
-			isa = PBXGroup;
-			children = (
-				A4016F5F1D0ED472003C549B /* main.c */,
-			);
-			path = "ffmpeg-xcode";
 			sourceTree = "<group>";
 		};
 		A4016F661D0ED645003C549B /* ffmpeg-3.0.2 */ = {
@@ -25985,6 +25974,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = A4016F531D0ED472003C549B;
@@ -26445,7 +26435,6 @@
 				A401A5901D0ED682003C549B /* rtpenc_h263.d in Sources */,
 				A401A8281D0ED682003C549B /* Makefile in Sources */,
 				A401950F1D0ED680003C549B /* brenderpix.c in Sources */,
-				A4016F601D0ED472003C549B /* main.c in Sources */,
 				A4019B271D0ED681003C549B /* simple_idct.c in Sources */,
 				A401A41D1D0ED682003C549B /* mmst.c in Sources */,
 				A40193761D0ED680003C549B /* aacps_float.d in Sources */,
@@ -30251,6 +30240,7 @@
 				A401A9101D0ED79D003C549B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

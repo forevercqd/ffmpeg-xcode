@@ -8,8 +8,8 @@ ffmpeg xcode project
 
 * `tar xvf ffmpeg-3.0.2.tar.bz2`
 * `cd ffmpeg-3.0.2`
-* `./configure --enable-debug`
-* `make -j8`
+* ./configure --prefix=./build/mac  --enable-debug --disable-yasm
+* make -j8
 
 ### step 2 新建一个空的 xcode 项目
 
